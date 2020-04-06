@@ -98,7 +98,7 @@ export default {
   .home{
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 0 auto 100px;
     width: 100%;
   }
   *{
@@ -125,7 +125,7 @@ export default {
 
   .throw {
     width: 300px;
-    margin: 50px auto;
+    margin: 40px auto;
     text-align: center;
     cursor: pointer;
     display: inline-block;
@@ -190,7 +190,7 @@ export default {
   }
   p.description{
     color: #fff;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
     padding-bottom: 10px;
