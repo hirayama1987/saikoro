@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <ol id="dice">
-      <li v-for="(member, key) in shuffledMembers" :key="key">
-        <span></span>
-        <strong>{{member}}</strong>
-      </li>
-    </ol>
-    <div class="throw" v-on:click="shuffleMember">サイコロを振る</div>
+    <h1><span>例</span><span>の</span><span>サ</span><span>イ</span><span>コ</span><span>ロ</span></h1>
+    <div class="hole">
+      <ol id="dice" class="idoling">
+        <li v-for="(member, key) in shuffledMembers" :key="key">
+          <span></span>
+          <p class="name">{{member}}</p>
+        </li>
+      </ol>
+    </div>
+    <button class="throw" v-on:click="shuffleMember" v-bind:disabled="isPush">サイコロを振る</button>
+    <p class="description">メンバーの名前を入力してください。</p>
     <textarea v-model="memberFrom" placeholder="名前を入力してください" @keyup="setMember" cols="12"></textarea>
   </div>
 </template>
@@ -17,7 +21,8 @@ export default {
   data: function () {
     return {
       shuffledMembers:[],
-      memberFrom:"★\n松本\n千原\n兵動\n原西\n宮川\n徳井\n綾部\n星野\nコバヤシ\n小藪"
+      memberFrom:"★\n松本\n千原\n兵動\n原西\n宮川\n徳井\n綾部\n星野\nコバヤシ\n小藪\n春日",
+      isPush: false
     }
   },
   computed:{
@@ -72,10 +77,16 @@ export default {
       this.shuffledMembers.splice()
     },
     shuffleMember: function () {
+      const vm = this
+      vm.isPush = true;
+      document.getElementById("dice").classList.remove("idoling")
       document.getElementById("dice").classList.remove("rolling")
       document.getElementById("dice").classList.add("rolling")
       setTimeout(this.updateMember, 1000);
-      setTimeout(function(){document.getElementById("dice").classList.remove("rolling")}, 3000);
+      setTimeout(function(){
+        document.getElementById("dice").classList.remove("rolling")
+        vm.isPush = false;
+      }, 3000);
     }
   },
   mounted : function(){
@@ -88,7 +99,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    width: 100vw;
+    width: 100%;
   }
   *{
     margin:0;
@@ -96,17 +107,24 @@ export default {
   }
   textarea{
     height: 300px;
-    width: 50%;
+    width: 300px;
     margin: 0 auto;
     font-size: 20px;
+    padding: 10px;
   }
   .rolling{
     animation:kurukuru 3s;
     transform-origin:0 0 -100px;
   }
+  .idoling{
+    animation:idol 3s;
+    transform-origin:0 30px -110px;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
 
   .throw {
-    width: 30%;
+    width: 300px;
     margin: 50px auto;
     text-align: center;
     cursor: pointer;
@@ -129,12 +147,61 @@ export default {
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
     border-bottom: none;
   }
+  h1{
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    padding: 40px 0;
+    span{
+      border: 1px solid #fff;
+      padding: 10px;
+      border-radius: 2px;
+      margin: 2px;
+      &:nth-child(1){
+        background-color: #5165A7;
+      }
+      &:nth-child(2){
+        background-color: #C62A3A;
+      }
+      &:nth-child(3){
+        background-color: #439E53;
+      }
+      &:nth-child(4){
+        background-color: #993F85;
+      }
+      &:nth-child(5){
+        background-color: #EADC3D;
+      }
+      &:nth-child(6){
+        background-color: #fff;
+        color: #B03D2B;
+      }
+    }
+  }
 
+  .hole{
+    background-color: brown;
+    border-radius: 10000px;
+    height: 600px;
+    width: 600px;
+    margin: 0 auto;
+    border: 10px solid #ab8f2c;
+    position: relative;
+  }
+  p.description{
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+  }
   ol{
     list-style:none;
     margin:200px auto;
     width: 100px;
-    position:relative;
+    position:absolute;
+    top: 70px;
+    left: 254px;
     transform-style:preserve-3d;
     li{
       width:100px;
@@ -142,11 +209,11 @@ export default {
       position:absolute;
       background:#333;
       transform:rotate3d(0,0,0,180deg);
-      strong{
-        font-size:30px;
+      .name{
+        font-size:25px;
         color:#fff;
         text-align:center;
-        line-height:1.25;
+        line-height:2.25;
         width:100%;
         position:absolute;
         z-index:1;
@@ -237,9 +304,48 @@ export default {
   @keyframes kurukuru{
     0% {
       transform:rotateX(0turn) rotateY(0turn) rotateZ(0turn);
+      top: 100vh;
+      left: 100vw;
     }
     100% {
       transform:rotateX(7turn) rotateY(1turn) rotateZ(0turn);
+      top: 70px;
+      left: 254px;
+    }
+  }
+  @keyframes idol{
+    0% {
+      transform:rotateX(0turn) rotateY(0turn) rotateZ(0turn);
+    }
+    100% {
+      transform:rotateX(1turn) rotateY(0turn) rotateZ(0turn);
+    }
+  }
+
+  @media screen and (max-width:768px){
+    /*300px以上で適用する内容*/
+    .hole{
+      width: 300px;
+      height: 300px;
+    }
+    #dice{
+      top: -82px;
+      left: 100px;
+    }
+    p.description{
+      font-size: 16px;
+    }
+    @keyframes kurukuru{
+      0% {
+        transform:rotateX(0turn) rotateY(0turn) rotateZ(0turn);
+        top: 80vh;
+        left: 150vw;
+      }
+      100% {
+        transform:rotateX(7turn) rotateY(1turn) rotateZ(0turn);
+        top: -82px;
+        left: 100px;
+      }
     }
   }
 </style>
