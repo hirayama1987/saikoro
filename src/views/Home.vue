@@ -12,6 +12,15 @@
     <button class="throw" v-on:click="shuffleMember" v-bind:disabled="isPush">サイコロを振る</button>
     <p class="description">メンバーの名前を入力してください。</p>
     <textarea v-model="memberFrom" placeholder="名前を入力してください" @keyup="setMember" cols="12"></textarea>
+    <p class="footer_txt">
+      <small>サイコロは12面ですが、振る度に面も変わるので何名様でもお使いいただけます。<br>
+      サイコロのデータは<a href="https://www.indetail.co.jp/blog/180824/" target="_blank">こちら</a>を参考にさせていただきました。<br>
+      <a href="https://twitter.com/pizzayama_" target="_blank">お問い合わせ</a>
+      </small>
+    </p>
+    <div class="tweet">
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    </div>
   </div>
 </template>
 
@@ -194,6 +203,25 @@ export default {
     font-weight: bold;
     text-align: center;
     padding-bottom: 10px;
+    small
+    {
+      font-size: 12px;
+    }
+  }
+  .footer_txt{
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    a{
+      color: #fff;
+    }
+    small
+    {
+      font-size: 12px;
+    }
   }
   ol{
     list-style:none;
@@ -300,7 +328,10 @@ export default {
       }
     }
   }
-
+  .tweet{
+    text-align: center;
+    margin-top: 30px;
+  }
   @keyframes kurukuru{
     0% {
       transform:rotateX(0turn) rotateY(0turn) rotateZ(0turn);
