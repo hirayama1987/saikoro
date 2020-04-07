@@ -30,7 +30,7 @@ export default {
   data: function () {
     return {
       shuffledMembers:[],
-      memberFrom:"★\n松本\n千原\n兵動\n原西\n宮川\n徳井\n綾部\n星野\nコバヤシ\n小藪\n春日",
+      memberFrom:"★\n松本\n千原\n兵動\n原西\n宮川\n徳井\n綾部\n木村\nコバヤシ\n小藪\n春日",
       isPush: false
     }
   },
